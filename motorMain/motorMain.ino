@@ -6,8 +6,8 @@
 #define ML1  8
 #define ML2  9
 
-#define MR1 6
-#define MR2 7
+#define MR1 7
+#define MR2 6
 
 #include "motorDriver.h"
 motorDriver motor;

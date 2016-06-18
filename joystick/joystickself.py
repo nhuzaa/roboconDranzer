@@ -19,9 +19,22 @@ def joystickControl(joy):
         buttons = joy.get_numbuttons()
         event = pygame.event.wait()
         if event.type == pygame.JOYBUTTONDOWN:
-            for i in range(buttons):
-                button = joy.get_button(i)
-                print( "Button {:>2} value: {}".format(i, button))
+            if joy.get_button(0) == 1 :
+                print("forward")
+                sio.write(unicode('w'))
+            if joy.get_button(2) == 1:
+                print("reverse")
+                sio.write(unicode('s'))
+            if joy.get_button(3) == 1:
+                print ("left")
+                sio.write(unicode('a'))
+            if joy.get_button(1) == 1:
+                print("right")
+                sio.write(unicode('d'))
+
+        if event.type == pygame.JOYBUTTONDOWN:
+            sio.write(unicode('f'))
+
 
 def motionControl(joy):
     while True:
@@ -60,7 +73,7 @@ def main():
 
     print "Ready for Action\n"
 
-    motionControl(joy)
+    joystickControl(joy)
 
 if __name__ == "__main__":
     main()
