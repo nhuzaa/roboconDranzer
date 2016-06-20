@@ -9,22 +9,24 @@
 
 #include <Servo.h>
 #include "servoExtend.h"
-#define servoPinA  7
-#define servoPinB  3
+#define servoPinBase  7
 
-#define servoPinC  4
-#define servoPinD  5
+#define servoPinA  8
+#define servoPinB  9
 
 
-servoExtend servoA(servoPinA), servoB(servoPinB), servoC(servoPinC) , servoD(servoPinD); // A is base then moving up D is the hand
 
+
+servoExtend servoBase, servoA, servoB;
 
 
 
 // variable to store the servo position
 
 void setup() {
-
+  Serial.begin(9600);
+  servoBase.setter(servoPinBase, 30 , 150 , 90 ); servoA.setter(servoPinA , 90 , 180 , 90 ); servoB.setter(servoPinB , 1 , 90 , 90 ) ; // A is base then moving up D is the hand
+  
 }
 
 void keyControl() {
@@ -37,38 +39,40 @@ void keyControl() {
     {
 
       case 'q':
-        servoA.increasePos();
+        servoBase.increasePos();
         Serial.write(servoA.getPos());
         break;
       case 'a':
-        servoA.decreasePos();
+        servoBase.decreasePos();
         Serial.write(servoA.getPos());
         break;
       case 'w':
-        servoB.increasePos();
-        break;
-      case 's':
+        servoA.increasePos();
         servoB.decreasePos();
         break;
-      case 'e':
-        servoC.increasePos();
-        break;
-      case 'd':
-        servoC.decreasePos();
-        break;
-      case 'r':
-        servoD.increasePos();
-        break;
-      case 'f':
-        servoD.decreasePos();
+      case 's':
+        servoA.decreasePos();
+        servoB.increasePos();
         break;
     }
 
+//    Serial.print( " ServoBase: " );
+//    Serial.print( servoBase.getPos());
+//
+//    Serial.print( "## servoA: " );
+//    Serial.print( servoA.getPos());
+//
+//    Serial.print( "## servoB: " );
+//    Serial.println( servoB.getPos());
+
+
   }
+ 
 }
+
 void loop() {
 
+keyControl();
 
-  void keyControl();
 }
 

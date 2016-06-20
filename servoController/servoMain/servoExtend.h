@@ -7,38 +7,46 @@ class servoExtend
 
   private:
     int pos;
-    int speedRight;
+    int minPos, maxPos;
     Servo myservo;
 
   public:
-    servoExtend(int a, int pos_init = 90 )
+    void  setter(int a, int x , int y , int pos_init = 90 )
     {
       myservo.attach(a);
       pos = pos_init;
+      minPos = x;
+      maxPos = y ;
     }
     void increasePos()
     {
-      for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
-        // in steps of 1 degree
-        myservo.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(15);                       // waits 15ms for the servo to reach the position
+      if (pos >= minPos & pos <= maxPos)
+      {
+        pos++;
+
+        myservo.write(pos);
+        delay(15);
       }
+      myservo.write(pos);
     }
     void decreasePos()
     {
-      for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
-        myservo.write(pos);              // tell servo to go to position in variable 'pos'
-        delay(15);                       // waits 15ms for the servo to reach the position
+      if (pos <= minPos & pos >= maxPos)
+      {
+        pos--;
+        myservo.write(pos);
+        delay(15);
       }
+       myservo.write(pos);
     }
     int getPos()
     {
-       return pos;
+      return pos;
     }
     int setpos(int pos_init)
     {
-        pos = pos_init;
-        myservo.write(pos);     
+      pos = pos_init;
+      myservo.write(pos);
     }
 
 };
