@@ -1,11 +1,12 @@
-import pygame
-import serial
-import signal
-import sys
-import threading
+import pygame 
+import serial 
+import signal 
+import sys 
+import threading 
 import io
+import time
 
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.005)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.0015)
 sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
 
 def printsioSerial():
@@ -31,9 +32,12 @@ def joystickControl(joy):
             if joy.get_button(1) == 1:
                 print("right")
                 sio.write(unicode('d'))
+	   
 
         if event.type == pygame.JOYBUTTONUP:
-            sio.write(unicode('f'))
+		sio.write(unicode('f'))
+		 
+
 	printsioSerial()
 
 def motionControl(joy):
@@ -54,8 +58,9 @@ def motionControl(joy):
             if joy.get_axis(0) > 0:
                 print("right")
                 sio.write(unicode('d'))
-
-
+ 	    if joy.get_button(0)  == 0 and joy.get_button(1) ==0:
+                    print("stop")
+                    sio.write(unicode('f'))
             printsioSerial()
 
 
@@ -76,4 +81,4 @@ def main():
     joystickControl(joy)
 
 if __name__ == "__main__":
-    main()
+    main() 
