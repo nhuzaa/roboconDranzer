@@ -1,13 +1,15 @@
 
 
+
 #define ENL 12
 #define ENR  13
 
-#define ML1  8
-#define ML2  9
+#define ML1  4 //IN 1
+#define ML2  5 // IN 2
 
-#define MR1 7
-#define MR2 6
+#define MR1 3 // IN 3
+#define MR2 2  // IN 4
+
 
 #include "motorDriver.h"
 motorDriver motor;
