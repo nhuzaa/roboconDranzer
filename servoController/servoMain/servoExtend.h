@@ -17,25 +17,32 @@ class servoExtend
       pos = pos_init;
       minPos = x;
       maxPos = y ;
+      myservo.write(pos);
     }
     void increasePos()
     {
-      if (pos >= minPos & pos <= maxPos)
+      if (pos <= maxPos)
       {
-        pos++;
+        pos = pos +2 ;
 
         myservo.write(pos);
-        delay(15);
+        //delay(5);
+      }else
+      {
+        pos = maxPos;
       }
       myservo.write(pos);
     }
     void decreasePos()
     {
-      if (pos <= minPos & pos >= maxPos)
+     if (pos >= minPos )
       {
-        pos--;
+        pos = pos -2 ;
         myservo.write(pos);
-        delay(15);
+        //delay(5);
+      }else
+      {
+        pos = minPos;
       }
        myservo.write(pos);
     }

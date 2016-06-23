@@ -5,14 +5,14 @@ import sys
 import threading
 import io
 
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.005)
+ser = serial.Serial('/dev/ttyACM3', 19200, timeout=0.005)
 sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
 
 def printsioSerial():
     sio.flush()
-    data = sio.readline()  # the last bit gets rid of the new-line chars
-    if data:
-        print (data)
+    #data = sio.readline()  # the last bit gets rid of the new-line chars
+    #if data:
+    #	print (data)
 
 def joystickControl(joy):
     while True:
@@ -31,10 +31,36 @@ def joystickControl(joy):
             if joy.get_button(1) == 1:
                 print("right")
                 sio.write(unicode('d'))
+            #servoBase
+            if joy.get_button(4) == 1:
+                print("servobase increase")
+		while( pygame.event.wait() == FALSE):
+                	sio.write(unicode('t'))
+            if joy.get_button(6) == 1:
+                print("servobase decrease")
+		while( pygame.event.wait() == FALSE):
+                	sio.write(unicode('g'))
+             #servoA and servo B
+            if joy.get_button(5) == 1:
+                print("servoa increase")
+                sio.write(unicode('y'))
+            if joy.get_button(7) == 1:
+                print("servoa decrease")
+                sio.write(unicode('h'))
+            #tuin
+            if joy.get_button(10) == 1:
+                print("Tuin grab")
+                sio.write(unicode('u'))
+            if joy.get_button(11) == 1:
+                print("Tuin realease")
+                sio.write(unicode('j'))
+
+
 
         if event.type == pygame.JOYBUTTONUP:
             sio.write(unicode('f'))
-	printsioSerial()
+            sio.write(unicode('n'))
+        printsioSerial()
 
 def motionControl(joy):
     while True:
@@ -65,13 +91,13 @@ def main():
     pygame.joystick.init()
     pygame.display.init()
     if not pygame.joystick.get_count():
-        print "\nPlease connect a joystick and run again.\n"
+        print ("\nPlease connect a joystick and run again.\n")
         quit()
-    print "\n%d joystick(s) detected." % pygame.joystick.get_count()
+    print ("\n%d joystick(s) detected." % pygame.joystick.get_count())
     joy = pygame.joystick.Joystick(0)
     joy.init()
 
-    print "Ready for Action\n"
+    print ("Ready for Action\n")
 
     joystickControl(joy)
 

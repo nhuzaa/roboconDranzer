@@ -5,18 +5,22 @@ import sys
 import threading
 import io
 
-ser = serial.Serial('/dev/ttyACM1', 9600, timeout=0.05)
+ser = serial.Serial('/dev/ttyACM0', 19200, timeout=0.05)
 sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
 
 def printsioSerial(chr):
     sio.write(unicode(chr))
     sio.flush()
-    data = sio.readline()  # the last bit gets rid of the new-line chars
-    if data:
-        print('\n')
-        print (data)
-        print('\n')
-
+    '''
+    try:
+        data = sio.readline()  # the last bit gets rid of the new-line chars
+        if data:
+            print('\n')
+            print (data)
+            print('\n')
+    except ValueError:
+        print ("no serial data")
+    '''
 def keyboardControl():
     while True:
         buttons = joy.get_numbuttons()
@@ -61,8 +65,16 @@ def untilKeyup(event):
     if event.key == pygame.K_r:
         printsioSerial('r')
     if event.key == pygame.K_f:
-        
         printsioSerial('f')
+    if event.key == pygame.K_t:
+        printsioSerial('t')
+    if event.key == pygame.K_g:
+        printsioSerial('g')
+    if event.key == pygame.K_y:
+        printsioSerial('y')
+    if event.key == pygame.K_h:
+        printsioSerial('h')
+
 
 
 def main():
