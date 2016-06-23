@@ -40,7 +40,6 @@ def speedSetter(error):
     
 # load the image, convert it to grayscale, and blur it slightly
 def vidFeed():
-
     ret, image = cap.read()
     height, width, channels = image.shape
     mask = np.zeros(image.shape, dtype=np.uint8)
@@ -127,3 +126,6 @@ def main():
 
 
 if __name__ == "__main__": main()
+
+
+

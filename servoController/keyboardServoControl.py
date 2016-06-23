@@ -5,7 +5,11 @@ import sys
 import threading
 import io
 
+<<<<<<< HEAD
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=0.05)
+=======
+ser = serial.Serial('/dev/ttyACM0', 19200, timeout=0.05)
+>>>>>>> 93ed62edc576656f1e119fbfdbcfd06fdf4c5fef
 sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
 
 def printsioSerial(chr):
@@ -70,6 +74,13 @@ def untilKeyup(event):
         printsioSerial('t')
     if event.key == pygame.K_g:
         printsioSerial('g')
+<<<<<<< HEAD
+=======
+    if event.key == pygame.K_y:
+        printsioSerial('y')
+    if event.key == pygame.K_h:
+        printsioSerial('h')
+>>>>>>> 93ed62edc576656f1e119fbfdbcfd06fdf4c5fef
 
 
 
